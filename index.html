@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="./assets/cs/style.css" />
+
+    <title>Music Quiz</title>
+</head>
+
+<body>
+    <header>
+    <section id = "score_keeper" style="display: none">
+        <input type="button" value="View High Scores" onclick="view_high_scores()"></br>
+        Score: <var id="score"> </var>
+    </section>
+
+    <section id= "countdownTimer" style="display: none">
+        Time Remaining: <span id="timer"></span>
+    </section>
+
+    </header>
+
+
+
+    <container>
+    <div id="homeContainer" class="none">
+        <h1>Harry Potter Quiz</h1>
+        <p>You have 75 seconds to answer the following questions about bands and the music industry.</p> 
+        <p> For each incorrect answer, you'll be docked 5 seconds.</p>
+        <p><strong>May the force be with you!</strong></p>
+        <br>
+        <button id="startBtn">Start Quiz</button>
+    </div>
+    </container>
+
+ 
+        <div id="quizContainer" style="display: none"> 
+            <h2 id="questionHeading"></h2>
+                <ul>
+                    <div id="choices">
+                        <button id="answerChoiceA"></button>
+                    </div>
+                    <div>
+                        <button id="answerChoiceB"></button>
+                    </div>
+                    <div>
+                        <button id="answerChoiceC"></button>
+                    </div>
+                    <div>
+                        <button id="answerChoiceD"></button>
+                    </div>
+                </ul>
+            </div>
+</body>
+
+<section id="AnswerResponse">
+</section>
+
+
+    <script src="./assets/js/script.js"></script>
+
+</html> 

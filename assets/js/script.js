@@ -373,3 +373,74 @@ answerChoiceD.addEventListener('click', function(event) {
                 };
             }, 1000);
           };
+
+          var endOfQuiz = function(){
+            console.log("end of quiz");
+            // clean up some stuff
+            clearMain();
+            currentQuestionIdx = 0;
+          
+            // console log time
+            console.log ("time: " + myDate);
+            console.log ("penalty: " + timePenalty);
+            console.log ("scored time: " + (timePenalty * 10 + myDate.getSeconds()+(myDate.getMinutes()/60)));
+          
+            //tally score
+            // score is time based.
+            var finalTime = (timePenalty * 10 + myDate.getSeconds()+(myDate.getMinutes()*60));
+            // max score is 5 for each question (you get 5 seconds to answer the question)
+            var perfectScore = activeQuestionsAry.length * 5;
+            // the only way to the end is to answer all questions correct, so score is always based on a perfect score minus overtime and penalties
+            // this also gives bonus score for finishing fast
+            var finalScore = perfectScore - (finalTime-perfectScore); 
+            console.log ("finalTime: " + finalTime);
+            console.log ("perfectScore: " + perfectScore);
+            console.log ("finalScore: " + finalScore);
+          
+          
+            // all done
+             var titleEl = document.createElement("H1");
+             titleEl.textContent = "You've completed the " + activeQuizTitle + " Challenge!";
+             instructionEl.appendChild(titleEl);  
+          
+             // Display result and get name for high score
+             var finalScoreEl = document.createElement("p");
+             finalScoreEl.textContent = "Your final score is " + finalScore;
+             contentEl.appendChild(finalScoreEl);  
+            // enter initials
+            var initialsPromptEl = document.createElement("p");
+            initialsPromptEl.textContent = "Enter your initials: ";
+            contentEl.appendChild(initialsPromptEl); 
+          
+            var initialsInputEl = document.createElement("input");
+            initialsPromptEl.appendChild(initialsInputEl); 
+            initialsInputEl.setAttribute("id", "initials");
+          
+            // add a submit button  
+            var initialsButtonEl = document.createElement("button");
+            initialsButtonEl.textContent = "Submit";
+            resultEl.appendChild(initialsButtonEl); 
+            initialsButtonEl.addEventListener("click", function () {
+              var myInitials = initialsInputEl.value;
+              //add to high scores
+              var highScoresAry= [];
+              if(localStorage.getItem("HighScores") !== null){
+                highScoresAry = highScoresAry.concat(JSON.parse(localStorage.getItem("HighScores")));
+              };
+          
+              highScoresAry.push(
+                {
+                  "user": myInitials,
+                  "quiz": activeQuizTitle,
+                  "score": finalScore
+              });
+          
+              // put updated scores in local storage
+              localStorage.setItem("HighScores", JSON.stringify(highScoresAry));
+          
+                  console.log("local storage set");
+                // go to high scores
+                highScores();
+            });
+          
+          };
